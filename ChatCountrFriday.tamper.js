@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name AnaliasCountr Chat Friday
-// @version	Chat 1.2Fri
+// @version	Chat 1.2 Fri
 // @description	script to be used only in DreamOfAnalia's room
 // @include	http://www.myfreecams.com/*
 // @match http://www.myfreecams.com/*
@@ -61,11 +61,11 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
     GM_addStyle(maStyles.join('\n'));
     var MAssist = (function () {
         var htmlSetup = false, currentModelID = "", findPlayer, currentModelName, killRegex, startRegex, minusRegex, plusRegex, postRegex, helpRegex;
-        var countDown, contributors = [], isCountDownActive, tipRegex, alertTimeout, highestTip = 0, stopRegex, UpdateTopic;
-        var parsing = false, parseQueue = [], autoPostActive = false, postCountTimeout = null, killPosting = false, lastRegex;
+        var countDown, contributors = [], isCountDownActive, tipRegex, alertTimeout, highestTip = 0, stopRegex, UpdateTopic, lastRegex;
+        var parsing = false, parseQueue = [], autoPostActive = false, postCountTimeout = null, killPosting = false, getlastRegex;
         var spanHighestTip, spanCurrentModel, spanMenuCount, spanTopContrib, divAlert, txtInput, btnSend, aAutoPost, aPostCurrentCount, soundDiv;
         var Topic1, Topic2, Topic3, Topic4, Topic5, T1, T2, T3, T4, T5, TpcSpec1, TpcSpec2, TpcSpec3, TpcSpec4, TpcSpec5, TpcSpec6, Vid1, Vid2, Vid3, Vid4, Vid5, Vid6, Vid7, Vid8;
-        var mfcLoadPlayer, Controller, PMValue, TwitMsg, VidMsg, gameRegex, chanceGuessed = [], chance;
+        var mfcLoadPlayer, Controller, PMValue, TwitMsg, VidMsg, gameRegex, chanceGuessed = [], chance, addgameRegex;
         function init() {
             setTimeout(function () {
                 mfcLoadPlayer = unsafeWindow.LoadPlayer;
@@ -388,7 +388,13 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")) {
-                    postChatMessage(UpdateTopic);
+                    var topictextmsg = UpdateTopic;
+                    if(null == topictextmsg){
+                        postChatMessage(":oops no previous topic has been posted and recorded");
+                    }
+                    else {
+                        postChatMessage(topictextmsg);
+                    }
                 }
                 else if (poster == "AnaliasCountr") {
                     postChatMessage(":mno countr, you know better!!");
@@ -403,6 +409,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             //parse the values
             var Topic = parseInt(topic[1]);
             UpdateTopic = Topic + " TY Guys";
+            postChatMessage("Updated topic has been stored, use the retrieve command to request it");
         }
         function postGameValues(msgSpan) {
             var poster;
@@ -523,31 +530,61 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")){
                     var minusamt = parseInt(minus[1]);
                     if (isCountDownActive){
-                        countDown = countDown - minusamt;
-                        if (countDown >= (1+T2)){
-                            postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T2));
-                            postCurrentCount();
-                            showCurrentCountDown();
+                        var remain = countDown - minusamt;
+                        if (countDown >= (1 + T2)) {
+                            if (remain <= T2){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function the start topic 2 to begin next countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T2));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else if (countDown >= (1 + T3)) {
-                            postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T3));
-                            postCurrentCount();
-                            showCurrentCountDown();
+                            if (remain <= T3){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function the start topic 3 to begin next countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T3));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else if (countDown >= (1 + T4)) {
-                            postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T4));
-                            postCurrentCount();
-                            showCurrentCountDown();
+                            if (remain <= T4){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function the start topic 4 to begin next countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T4));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else if (countDown >= (1 + T5)) {
-                            postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T5));
-                            postCurrentCount();
-                            showCurrentCountDown();
+                            if (remain <= T5){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function the start topic 5 to begin next countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T5));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else if (countDown >= 1) {
-                            postChatMessage(poster + " has reduced the topic, which is now " + countDown);
-                            postCurrentCount();
-                            showCurrentCountDown();
+                            if (remain <= 0){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function to cancel countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else {
                             postChatMessage(poster + " i tried to reduce the count but something went wrong");
@@ -576,53 +613,58 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")){
                     var plusamt = parseInt(plus[1]);
                     if (isCountDownActive){
-                        countDown = countDown + plusamt;
+                        var range = countDown + plusamt;
                         if (countDown >= (1 + T2)){
-                            if ((countDown + plusamt) >= T1){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T1 - countDown));
+                            if ((countDown + plusamt) >= (T1 + 1)){
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T1 - range));
                             }
                             else {
+                                countDown = range;
                                 postChatMessage(poster + " has increased the topic, which is now " + (countDown - T2));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
-                        else if (countDown >= (1 + T3)) {
-                            if ((countDown + plusamt) >= T3){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T3 - countDown));
+                        else if (countDown >= (1 + T3)){
+                            if ((countDown + plusamt) >= (T2 + 1)){
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T2 - range));
                             }
                             else {
+                                countDown = range;
                                 postChatMessage(poster + " has increased the topic, which is now " + (countDown - T3));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
-                        else if (countDown >= (1 + T4)) {
-                            if ((countDown + plusamt) >= T4){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T4 - countDown));
+                        else if (countDown >= (1 + T4)){
+                            if ((countDown + plusamt) >= (T3 + 1)){
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T3 - range));
                             }
                             else {
+                                countDown = range;
                                 postChatMessage(poster + " has increased the topic, which is now " + (countDown - T4));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
-                        else if (countDown >= (1 + T5)) {
-                            if ((countDown + plusamt) >= T5){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T5 - countDown));
+                        else if (countDown >= (1 + T5)){
+                            if ((countDown + plusamt) >= (T4 + 1)){
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T4 - range));
                             }
                             else {
+                                countDown = range;
                                 postChatMessage(poster + " has increased the topic, which is now " + (countDown - T5));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
-                        else if (countDown >= 1) {
+                        else if (countDown >= 1){
                             if ((countDown + plusamt) >= T5){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T5 - countDown));
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T5 - range));
                             }
                             else {
-                                postChatMessage(poster + " has inreased the topic, which is now " + countDown);
+                                countDown = range;
+                                postChatMessage(poster + " has increased the topic, which is now " + (countDown));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -630,7 +672,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                         else {
                             postChatMessage(poster + " i tried to increased the count but something went wrong");
                         }
-                    }
+                }
                     else {
                         postChatMessage(":hide sorry, " + poster + " no countdown is currently running so I couldn't increase");
                     }
@@ -951,6 +993,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             helpRegex = "countr help";
             stopRegex = "countr stop";
             gameRegex = "the game is";
+            addgameRegex = "add (.*) to numbers guessed";
             lastRegex = "Topic: (.[^:]+) TY Guys";
             getlastRegex = "what was my topic?";
             countDown = 0;
