@@ -802,7 +802,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")) {
-                postChatMessage("Following commands are used for countr: minus xxx | plus xxx | topic please | start topic x | countr help")
+                    postChatMessage("/pm " + poster + " for a full list of countr commands visit: http://www.dropbox.com/s/5bpw6kexul7q7zt/AnaliasCountr.docx?dl=0")
                 }
                 else if (poster == "AnaliasCountr"){
                     postChatMessage("");
@@ -1111,7 +1111,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             lastRegex = "Topic: (.[^:]+) TY Guys";
             getlastRegex = "my topic!";
             newgameRegex = "start new game!";
-            spamRegex = "spam!";
+            spamRegex = "!spam!";
             countDown = 0;
             chanceGuessed = [];
             isCountDownActive = false;
