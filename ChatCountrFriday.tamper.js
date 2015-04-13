@@ -642,23 +642,23 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                         }
                         else if (countDown >= (1 + T2)) {
                             var CDVal1 = (countDown - T2);
-                            postChatMessage("Happy Monday Guys! $$value$$ Panties Off, 99tk Spank/100tk Flash, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal1);
+                            postChatMessage("Hi Guys! $$value$$ Nakkey, 99tk Spank/100tk Flash, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal1);
                         }
                         else if (countDown >= (1 + T3)) {
                             var CDVal2 = (countDown - T3);
-                            postChatMessage("Happy Monday Guys! $$value$$ Panties Off, 99tk Spank/100tk Flash, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal2);
+                            postChatMessage("Hi Guys! $$value$$ [type] show, 99tk Spank, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal2);
                         }
                         else if (countDown >= (1 + T4)) {
                             var CDVal3 = (countDown - T4);
-                            postChatMessage("Happy Monday Guys! $$value$$ [type] show, 99tk Spank, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal3);
+                            postChatMessage("Hi Guys! $$value$$ [type] show, 99tk Spank, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal3);
                         }
                         else if (countDown >= (1 + T5)) {
                             var CDVal4 = (countDown - T5);
-                            postChatMessage("Happy Monday Guys! $$value$$ [type] show, 99tk Spank, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal3);
+                            postChatMessage("Hi Guys! $$value$$ [type] show, 99tk Spank, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal4);
                         }
                         else {
                             var CDVal5 = (countDown);
-                            postChatMessage("Happy Monday Guys! $$value$$ [type] show, 99tk Spank, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal3);
+                            postChatMessage("Thank You Guys!! 99tk Spank, 1717tk SnapChat 4ever, 2 Vids 555tk(choose from profile) G/G Vid 500tk, TY Guys").replace("$$value$$", CDVal5);
                         }
                     }
                     else {
@@ -1097,7 +1097,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "TestCounter")) {
                 postChatMessage("Following commands are used for countr: minus xxx | plus xxx | topic please | start topic x | countr help");
-                    postChatMessage("/pm " + poster + " for a full list of countr commands visit: http://www.dropbox.com/s/5bpw6kexul7q7zt/AnaliasCountr.docx?dl=0")
+                    postChatMessage("/pm " + poster + " for a full list of countr commands visit: http://www.dropbox.com/s/5bpw6kexul7q7zt/AnaliasCountr.docx?dl=0");
+                    postChatMessage("http://i.imgur.com/CNI2mH6.jpg");
                 }
                 else if (poster == "AnaliasCountr"){
                     postChatMessage("");
