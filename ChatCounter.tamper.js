@@ -61,11 +61,11 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
     GM_addStyle(maStyles.join('\n'));
     var MAssist = (function () {
         var htmlSetup = false, currentModelID = "", findPlayer, currentModelName, killRegex, startRegex, minusRegex, plusRegex, postRegex, helpRegex;
-        var countDown, contributors = [], isCountDownActive, tipRegex, alertTimeout, highestTip = 0, stopRegex, UpdateTopic;
-        var parsing = false, parseQueue = [], autoPostActive = false, postCountTimeout = null, killPosting = false, lastRegex;
+        var countDown, contributors = [], isCountDownActive, tipRegex, alertTimeout, highestTip = 0, stopRegex, UpdateTopic, lastRegex;
+        var parsing = false, parseQueue = [], autoPostActive = false, postCountTimeout = null, killPosting = false, getlastRegex, spamRegex;
         var spanHighestTip, spanCurrentModel, spanMenuCount, spanTopContrib, divAlert, txtInput, btnSend, aAutoPost, aPostCurrentCount, soundDiv;
         var Topic1, Topic2, Topic3, Topic4, Topic5, T1, T2, T3, T4, T5, TpcSpec1, TpcSpec2, TpcSpec3, TpcSpec4, TpcSpec5, TpcSpec6, Vid1, Vid2, Vid3, Vid4, Vid5, Vid6, Vid7, Vid8;
-        var mfcLoadPlayer, Controller, PMValue, TwitMsg, VidMsg, gameRegex, chanceGuessed = [], chance;
+        var mfcLoadPlayer, Controller, PMValue, TwitMsg, VidMsg, gameRegex, chanceGuessed = [], chance, addgameRegex, newgameRegex;
         function init() {
             setTimeout(function () {
                 mfcLoadPlayer = unsafeWindow.LoadPlayer;
@@ -307,7 +307,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             btnSend.click();
         }
         function showCurrentCountDown() {
-            //maAlert("HoleeeSheeet: " + countDown + " tokens left on countdown.");
+            //maAlert("Frumy: " + countDown + " tokens left on countdown.");
             setElementText(spanMenuCount, " (" + countDown + ")");
         }
         function maAlert(text) {
@@ -335,10 +335,22 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 var start = msg.innerHTML.match(startRegex);
                 if (start)
                     startVarCount(start, msg);
+                //addgameRegex?
+                var addgame = msg.innerHTML.match(addgameRegex);
+                if (addgame)
+                    handleGame(addgame, msg);
                 //minusregex?
                 var minus = msg.innerHTML.match(minusRegex);
                 if (minus)
                     minusCountDown(minus, msg);
+                //spamRegex
+                var spam = msg.innerHTML.match(spamRegex);
+                if (spam)
+                    removeSpam(msg);
+                //newgameRegex?
+                var newgame = msg.innerHTML.match(newgameRegex);
+                if (newgame)
+                    beginNew(msg);
                 //plusregex?
                 var plus = msg.innerHTML.match(plusRegex);
                 if (plus)
@@ -381,14 +393,115 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             }
             parsing = false;
         }
+        function removeSpam(msgSpan) {
+            var poster;
+            //is the message from the model?
+            var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
+            if (nameSpan) {
+                poster = nameSpan.innerHTML.replace(/:/, '');
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")) {
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage(".");
+                    postChatMessage("spam removed as requested " + poster);
+                }
+            }
+        }
+        function beginNew(msgSpan) {
+            var poster;
+            //is the message from the model?
+            var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
+            if (nameSpan) {
+                poster = nameSpan.innerHTML.replace(/:/, '');
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")) {
+                    chanceGuessed.length = 0;
+                    postChatMessage("game data has been reset by " + poster)
+                }
+                else {
+                    postChatMessage(":nono I'm sorry " + poster + " you can not remove game data");
+                }
+            }
+        }
+        function handleGame(addgame, msgSpan){
+            var poster;
+            //is the message from the model?
+            var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
+            if (nameSpan) {
+                poster = nameSpan.innerHTML.replace(/:/, '');
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")) {
+                    var amount = parseInt(addgame[1]);
+                    if (amount >= 101) {
+                        postChatMessage("I'm sorry, the maximum amount for the game is 100, to change please contact Parkesy");
+                    }
+                    else if (amount === chance) {
+                        postChatMessage(":uhuh we have a winner, please reset game");
+                    }
+                    else {
+                        if (chanceGuessed.indexOf(amount) == -1) {
+                            chanceGuessed.push(amount);
+                            postChatMessage(amount + " has been added to numbers guessed but is not a winner");
+                        }
+                        else {
+                            postChatMessage(amount + " has already been guessed");
+                            postChatMessage("numbers guessed so far are: " + chanceGuessed.sort());
+                        }
+                    }
+                }
+                else {
+                postChatMessage(":mno I'm sorry " + poster + " guesses need to be the value of a tip")
+                }
+            }
+        }
         function postLastTopic(msgSpan)  {
             var poster;
             //is the message from the model?
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")) {
-                    postChatMessage(UpdateTopic);
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")) {
+                    var topictextmsg = UpdateTopic;
+                    if(null == topictextmsg){
+                        postChatMessage(":oops no previous topic has been posted and recorded");
+                    }
+                    else {
+                        postChatMessage(topictextmsg);
+                    }
                 }
                 else if (poster == "AnaliasCountr") {
                     postChatMessage(":mno countr, you know better!!");
@@ -403,6 +516,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             //parse the values
             var Topic = parseInt(topic[1]);
             UpdateTopic = Topic + " TY Guys";
+            postChatMessage("Updated topic has been stored, use the retrieve command to request it");
         }
         function postGameValues(msgSpan) {
             var poster;
@@ -410,12 +524,15 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")){
-                postChatMessage("/pm " + poster + " the random number for today is " + chance + " whoever tips this wins (max 1 person)");
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")){
+                    postChatMessage("/pm " + poster + " the random number for today is " + chance + " whoever tips this wins (max 1 person)");
+                    postChatMessage("DreamOfAnalia's Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
+                    postChatMessage("numbers guessed so far are: " + chanceGuessed.sort());
                 }
                 else {
-                    postChatMessage("DreamOfAnalia's Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win");
-                    postChatMessage("numbers guessed so far are: " + chanceGuessed);
+                    postChatMessage("DreamOfAnalia's Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
+                    postChatMessage("numbers guessed so far are: " + chanceGuessed.sort());
+                    postChatMessage("/pm DreamOfAnalia the random number for today is " + chance + " whoever tips this wins (max 1 person per game)");
                 }
             }
         }
@@ -425,7 +542,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")){
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")){
                     isCountDownActive = false;
                     autoPostActive = false;
                     countDown = 0;
@@ -447,7 +564,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")) {
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")) {
                     //parse the value
                     var topicNumb = parseInt(start[1]);
                     if (isCountDownActive) {
@@ -520,34 +637,64 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")){
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")){
                     var minusamt = parseInt(minus[1]);
                     if (isCountDownActive){
-                        countDown = countDown - minusamt;
-                        if (countDown >= (1+T2)){
-                            postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T2));
-                            postCurrentCount();
-                            showCurrentCountDown();
+                        var remain = countDown - minusamt;
+                        if (countDown >= (1 + T2)) {
+                            if (remain <= T2){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function the start topic 2 to begin next countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T2));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else if (countDown >= (1 + T3)) {
-                            postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T3));
-                            postCurrentCount();
-                            showCurrentCountDown();
+                            if (remain <= T3){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function the start topic 3 to begin next countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T3));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else if (countDown >= (1 + T4)) {
-                            postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T4));
-                            postCurrentCount();
-                            showCurrentCountDown();
+                            if (remain <= T4){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function the start topic 4 to begin next countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T4));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else if (countDown >= (1 + T5)) {
-                            postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T5));
-                            postCurrentCount();
-                            showCurrentCountDown();
+                            if (remain <= T5){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function the start topic 5 to begin next countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T5));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else if (countDown >= 1) {
-                            postChatMessage(poster + " has reduced the topic, which is now " + countDown);
-                            postCurrentCount();
-                            showCurrentCountDown();
+                            if (remain <= 0){
+                                postChatMessage("I'm sorry but I can not clear topics, please use the stop function to cancel countdown");
+                            }
+                            else {
+                                countDown = remain;
+                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown));
+                                postCurrentCount();
+                                showCurrentCountDown();
+                            }
                         }
                         else {
                             postChatMessage(poster + " i tried to reduce the count but something went wrong");
@@ -573,56 +720,61 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")){
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")){
                     var plusamt = parseInt(plus[1]);
                     if (isCountDownActive){
-                        countDown = countDown + plusamt;
+                        var range = countDown + plusamt;
                         if (countDown >= (1 + T2)){
-                            if ((countDown + plusamt) >= T1){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T1 - countDown));
+                            if ((countDown + plusamt) >= (T1 + 1)){
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T1 - range));
                             }
                             else {
+                                countDown = range;
                                 postChatMessage(poster + " has increased the topic, which is now " + (countDown - T2));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
-                        else if (countDown >= (1 + T3)) {
-                            if ((countDown + plusamt) >= T3){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T3 - countDown));
+                        else if (countDown >= (1 + T3)){
+                            if ((countDown + plusamt) >= (T2 + 1)){
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T2 - range));
                             }
                             else {
+                                countDown = range;
                                 postChatMessage(poster + " has increased the topic, which is now " + (countDown - T3));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
-                        else if (countDown >= (1 + T4)) {
-                            if ((countDown + plusamt) >= T4){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T4 - countDown));
+                        else if (countDown >= (1 + T4)){
+                            if ((countDown + plusamt) >= (T3 + 1)){
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T3 - range));
                             }
                             else {
+                                countDown = range;
                                 postChatMessage(poster + " has increased the topic, which is now " + (countDown - T4));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
-                        else if (countDown >= (1 + T5)) {
-                            if ((countDown + plusamt) >= T5){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T5 - countDown));
+                        else if (countDown >= (1 + T5)){
+                            if ((countDown + plusamt) >= (T4 + 1)){
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T4 - range));
                             }
                             else {
+                                countDown = range;
                                 postChatMessage(poster + " has increased the topic, which is now " + (countDown - T5));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
-                        else if (countDown >= 1) {
+                        else if (countDown >= 1){
                             if ((countDown + plusamt) >= T5){
-                                postChatMessage("I'm sorry, that will take it over the original topic amount, maximum I could possibly increase by is " + (T5 - countDown));
+                                postChatMessage("I'm sorry, that will take it over the original topic amount, reduce request by " + (T5 - range));
                             }
                             else {
-                                postChatMessage(poster + " has inreased the topic, which is now " + countDown);
+                                countDown = range;
+                                postChatMessage(poster + " has increased the topic, which is now " + (countDown));
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -630,7 +782,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                         else {
                             postChatMessage(poster + " i tried to increased the count but something went wrong");
                         }
-                    }
+                }
                     else {
                         postChatMessage(":hide sorry, " + poster + " no countdown is currently running so I couldn't increase");
                     }
@@ -649,8 +801,9 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "HoleeeSheeet")) {
-                postChatMessage("Following commands are used for countr: minus xxx | plus xxx | topic please | start topic x | countr help")
+                if ((currentModelName === poster) || (poster == "Parkesy86") || (poster == "Frumy")) {
+                postChatMessage("Following commands are used for countr: minus xxx | plus xxx | topic please | start topic x | countr help");
+                    postChatMessage("/pm " + poster + " for a full list of countr commands visit: http://www.dropbox.com/s/5bpw6kexul7q7zt/AnaliasCountr.docx?dl=0")
                 }
                 else if (poster == "AnaliasCountr"){
                     postChatMessage("");
@@ -681,13 +834,17 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (isCountDownActive) {
                 if (amount <= 100) {
                     if (amount === chance){
-                        postChatMessage(":uhuh we have a winner");
+                        postChatMessage(":uhuh we have a winner " + contributor);
+                        postChatMessage(PMValue + contributor + " has won the guessing game with the value " + amount);
                     }
                     else {
                         if(chanceGuessed.indexOf(amount) == -1) {
-                            arr.push(amount);
+                            chanceGuessed.push(amount);
                         }
-                        postChatMessage("number guessed are: " + chanceGuessed);
+                        else {
+                            postChatMessage(contributor + ", I'm sorry " + amount + " had been guessed previously");
+                        }
+                        postChatMessage("number guessed are: " + chanceGuessed.sort());
                         adjustCountDown(amount);
                     }
                 }
@@ -951,8 +1108,11 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             helpRegex = "countr help";
             stopRegex = "countr stop";
             gameRegex = "the game is";
+            addgameRegex = "add (.*) to numbers guessed";
             lastRegex = "Topic: (.[^:]+) TY Guys";
-            getlastRegex = "what was my topic?";
+            getlastRegex = "my topic!";
+            newgameRegex = "start new game!";
+            spamRegex = "!spam!";
             countDown = 0;
             chanceGuessed = [];
             isCountDownActive = false;
