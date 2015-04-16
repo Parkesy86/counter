@@ -2824,7 +2824,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             gameRegex = /game! is/i;
             stopGamesRegex = /stop all!/i;
             startGameRegex = /(start|stop) (war|guess|blackjack|spin)!/i;
-            setGameTipRegex = /set (war|guess|blackjack|spin)(.*) tip!/i;
+            setGameTipRegex = /set (war|guess|blackjack|spin) (.*) tip!/i;
             setGamePrizeRegex = /(war|guess|blackjack|spin) prize is (.[^:]+) x/i;
             //Guessing Game
             toggleGuessRegex = /clear guess! game/i;
