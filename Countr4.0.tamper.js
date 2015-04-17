@@ -211,7 +211,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "Parkesy86") || (poster == "DreamOfAnalia") || (poster === helper) || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
+                if ((poster == "Parkesy86") || (poster === currentModelName) || (poster === helper) || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
                     if (isBlackJackActive) {
                         Dealer = currentModelName;
                         Player = BlkJk1[1];
@@ -242,8 +242,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                         postChatMessage(Dealer + " has BlackJack, " + Player + " has " + PlayerHand + " Dealer wins!");
                                     }
                                     else if (PlayerHand === 21) {
-                                        if (BlkJkPrizeSet) {
-                                            postChatMessage(Player + " has BlackJack and has won " + BlkJkPrize);
+                                        if (BlackJackPrizeAssigned) {
+                                            postChatMessage(Player + " has BlackJack and has won " + BlackJackPrize);
                                         }
                                         else {
                                             postChatMessage(Player + " has BlackJack");
@@ -257,8 +257,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                     else {
                                         postChatMessage(Dealer + " bust " + Player + " wins");
                                         {
-                                            if (BlkJkPrizeSet) {
-                                                postChatMessage(Player + " has beat the dealer and won " + BlkJkPrize);
+                                            if (BlackJackPrizeAssigned) {
+                                                postChatMessage(Player + " has beat the dealer and won " + BlackJackPrize);
                                             }
                                             else {
                                                 postChatMessage(Player + " has beat the dealer");
@@ -271,9 +271,11 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                         postChatMessage(Dealer + " has to stick");
                                         DealerSet = true;
                                         BlkJkRd1 = true;
+                                        postChatMessage(Player + " would you like another card? just type: 'draw! 1' & I will draw another card for you");
                                     }
                                     else {
                                         BlkJkRd1 = true;
+                                        postChatMessage("Who would you like another card? just type: 'draw! 1' & I will draw another card for you");
                                     }
                                 }
                                 else {
@@ -295,7 +297,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper) || (poster === Player)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper) || (poster === Player)) {
                     if (isBlackJackActive) {
                         if (BlkJkRd1) {
                             var CardValues = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13"];
@@ -303,7 +305,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                 postChatMessage("No values set for player or dealer, idk how I got to round2")
                             }
                             else if (DealerSet) {
-                                if (cardchoice == "player") {
+                                if (poster === Player) {
                                     //Card value 1 for Player
                                     var Val3P = Math.floor((Math.random() * 13), +1);
                                     //Get the hand values
@@ -315,8 +317,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                     }, 6000);
                                     postCountTimeout = setTimeout(function () {
                                         if (PlayerHand2 === 21) {
-                                            if (BlkJkPrizeSet) {
-                                                postChatMessage(Player + " has BlackJack and has won " + BlkJkPrize);
+                                            if (BlackJackPrizeAssigned) {
+                                                postChatMessage(Player + " has BlackJack and has won " + BlackJackPrize);
                                             }
                                             else {
                                                 postChatMessage(Player + " has BlackJack");
@@ -329,8 +331,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                             else {
                                                 postChatMessage(Dealer + " bust " + Player + " wins");
                                                 {
-                                                    if (BlkJkPrizeSet) {
-                                                        postChatMessage(Player + " has beat the dealer and won " + BlkJkPrize);
+                                                    if (BlackJackPrizeAssigned) {
+                                                        postChatMessage(Player + " has beat the dealer and won " + BlackJackPrize);
                                                     }
                                                     else {
                                                         postChatMessage(Player + " has beat the dealer");
@@ -343,9 +345,11 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                                 postChatMessage(Dealer + " has to stick");
                                                 DealerSet = true;
                                                 BlkJkRd2 = true;
+                                                postChatMessage(Player + " would you like another card? just type: 'draw! 1' & I will draw another card for you");
                                             }
                                             else {
                                                 BlkJkRd2 = true;
+                                                postChatMessage("Who would you like another card? just type: 'draw! 1' & I will draw another card for you");
                                             }
                                         }
                                         else {
@@ -353,162 +357,150 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                         }
                                     }, 9000);
                                 }
-                                else if (cardchoice == "house") {
+                                else if ((poster === currentModelName) || (poster == "TestCounter") || (poster == "Parkesy86") || (poster === helper)) {
                                     if (poster === Player) {
                                         postChatMessage("Only the house can draw cards for itself");
                                     }
-                                    postChatMessage("Dealer can not draw another card, house has to stand on 16");
+                                    postChatMessage("Dealer can not draw another card, house has to stand on hands over 16");
                                 }
                                 else {
                                     postChatMessae("I'm Sorry, I can't do that");
                                 }
                             }
                             else {
-                                if (cardchoice == "player") {
-                                    if (poster === Player) {
-                                        var Val3P = Math.floor((Math.random() * 13), +1);
-                                        //Get the hand values
-                                        PlayerHand2 = (Val3P + PlayerHand);
-                                        DealerHand2 = DealerHand;
-                                        postChatMessage(Player + " now has a hand of " + PlayerHand2);
-                                        postCountTimeout = setTimeout(function () {
-                                            if (PlayerHand2 === 21) {
-                                                if (BlkJkPrizeSet) {
-                                                    postChatMessage(Player + " has 21 and has won " + BlkJkPrize);
-                                                    BlkJkRd1 = false;
-                                                    Player = '';
-                                                }
-                                                else {
-                                                    postChatMessage(Player + " has 21 & won");
-                                                }
-                                            }
-                                            else if ((PlayerHand2 >= 22) || (DealerHand2 >= 22)) {
-                                                if (PlayerHand2 >= 22) {
-                                                    postChatMessage(Player + " bust");
-                                                    BlkJkRd1 = false;
-                                                    Player = '';
-                                                }
-                                                else {
-                                                    postChatMessage(Dealer + " bust " + Player + " wins");
-                                                    BlkJkRd1 = false;
-                                                    {
-                                                        if (BlkJkPrizeSet) {
-                                                            postChatMessage(Player + " has beat the dealer and won " + BlkJkPrize);
-                                                            BlkJkRd1 = false;
-                                                            Player = '';
-                                                        }
-                                                        else {
-                                                            postChatMessage(Player + " has beat the dealer");
-                                                            BlkJkRd1 = false;
-                                                            Player = '';
-                                                        }
-                                                    }
-                                                }
+                                if (poster === Player) {
+                                    var Val3P = Math.floor((Math.random() * 13), +1);
+                                    //Get the hand values
+                                    PlayerHand2 = (Val3P + PlayerHand);
+                                    DealerHand2 = DealerHand;
+                                    postChatMessage(Player + " now has a hand of " + PlayerHand2);
+                                    postCountTimeout = setTimeout(function () {
+                                        if (PlayerHand2 === 21) {
+                                            if (BlackJackPrizeAssigned) {
+                                                postChatMessage(Player + " has 21 and has won " + BlackJackPrize);
+                                                BlkJkRd1 = false;
+                                                Player = '';
                                             }
                                             else {
-                                                postChatMessage("who wants to draw?");
-                                                DealerHand = DealerHand2;
-                                                PlayerHand = PlayerHand2;
+                                                postChatMessage(Player + " has 21 & won");
                                             }
-                                        }, 9000);
-                                    }
-                                    else {
-                                        postChatMessage("I'm sorry only " + Player + " can request their own card");
-                                    }
-                                }
-                                else if (cardchoice == "house") {
-                                    if ((poster == "DreamOfAnalia") || (poster == "TestCounter") || (poster == "Parkesy86") || (poster == "HoleeeSheeet") || (poster === helper)) {
-                                        //card value 3 for model
-                                        var Val3Mod = Math.floor((Math.random() * 13), +1);
-                                        //Get the hand values
-                                        PlayerHand2 = PlayerHand;
-                                        DealerHand2 = (Val3Mod + DealerHand);
-                                        postCountTimeout = setTimeout(function () {
-                                            postChatMessage(Player + " has a hand of " + PlayerHand2);
-                                            postChatMessage(Dealer + " has a hand of " + DealerHand2);
-                                        }, 6000);
-                                        postCountTimeout = setTimeout(function () {
-                                            if ((PlayerHand2 === 21) || (DealerHand2 === 21)) {
-                                                if ((PlayerHand2 === 21) && (DealerHand2 === 21)) {
-                                                    postChatMessage("Its a draw! re=shuffling deck and dealing again");
-                                                    BlkJkRd1 = true;
-                                                    Player = '';
-                                                    DealerHand = 0;
-                                                    PlayerHand = 0;
-                                                    postChatMessage("BlackJack " + Player + " x");
-                                                }
-                                                else if (DealerHand2 === 21) {
-                                                    postChatMessage(Dealer + " has BlackJack, " + Player + " has " + PlayerHand + " Dealer wins!");
-                                                    BlkJkRd1 = false;
-                                                    Player = '';
-                                                    DealerHand = 0;
-                                                    PlayerHand = 0;
-                                                }
-                                                else if (PlayerHand2 === 21) {
-                                                    if (BlkJkPrizeSet) {
-                                                        postChatMessage(Player + " has 21 and has won " + BlkJkPrize);
+                                        }
+                                        else if ((PlayerHand2 >= 22) || (DealerHand2 >= 22)) {
+                                            if (PlayerHand2 >= 22) {
+                                                postChatMessage(Player + " bust");
+                                                BlkJkRd1 = false;
+                                                Player = '';
+                                            }
+                                            else {
+                                                postChatMessage(Dealer + " bust " + Player + " wins");
+                                                BlkJkRd1 = false;
+                                            if (BlackJackPrizeAssigned) {
+                                                        postChatMessage(Player + " has beat the dealer and won " + BlackJackPrize);
                                                         BlkJkRd1 = false;
                                                         Player = '';
-                                                        DealerHand = 0;
-                                                        PlayerHand = 0;
-                                                    }
-                                                    else {
-                                                        postChatMessage(Player + " has 21");
-                                                        Player = '';
-                                                        DealerHand = 0;
-                                                        PlayerHand = 0;
-                                                        BlkJkRd1 = false;
-                                                    }
-                                                }
-                                            }
-                                            else if ((PlayerHand2 >= 22) || (DealerHand2 >= 22)) {
-                                                if (PlayerHand2 >= 22) {
-                                                    postChatMessage(Player + " bust");
-                                                    BlkJkRd1 = false;
-                                                    Player = '';
-                                                    DealerHand = 0;
-                                                    PlayerHand = 0;
-                                                }
-                                                else {
-                                                    postChatMessage(Dealer + " bust " + Player + " wins");
-                                                    BlkJkRd1 = false;
-                                                    Player = '';
-                                                    DealerHand = 0;
-                                                    PlayerHand = 0;
-                                                    if (BlkJkPrizeSet) {
-                                                        postChatMessage(Player + " has beat the dealer and won " + BlkJkPrize);
                                                     }
                                                     else {
                                                         postChatMessage(Player + " has beat the dealer");
+                                                        BlkJkRd1 = false;
+                                                        Player = '';
                                                     }
                                                 }
                                             }
-                                            else if (DealerHand2 <= 21) {
-                                                if (DealerHand2 >= 16) {
-                                                    postChatMessage(Dealer + " has to stick");
-                                                    DealerSet = true;
-                                                    BlkJkRd1 = true;
-                                                    DealerHand = DealerHand2;
-                                                    postChatMessage(Player + " would you like another card?");
+                                        else {
+                                            postChatMessage("who wants to draw? just type: 'draw! 1' & I will draw a card for you");
+                                            DealerHand = DealerHand2;
+                                            PlayerHand = PlayerHand2;
+                                        }
+                                    }, 9000);
+                                }
+                                else if ((poster === currentModelName) || (poster == "TestCounter") || (poster == "Parkesy86") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                                    //card value 3 for model
+                                    var Val3Mod = Math.floor((Math.random() * 13), +1);
+                                    //Get the hand values
+                                    PlayerHand2 = PlayerHand;
+                                    DealerHand2 = (Val3Mod + DealerHand);
+                                    postCountTimeout = setTimeout(function () {
+                                        postChatMessage(Player + " has a hand of " + PlayerHand2);
+                                        postChatMessage(Dealer + " has a hand of " + DealerHand2);
+                                    }, 6000);
+                                    postCountTimeout = setTimeout(function () {
+                                        if ((PlayerHand2 === 21) || (DealerHand2 === 21)) {
+                                            if ((PlayerHand2 === 21) && (DealerHand2 === 21)) {
+                                                postChatMessage("Its a draw! re=shuffling deck and dealing again");
+                                                BlkJkRd1 = true;
+                                                Player = '';
+                                                DealerHand = 0;
+                                                PlayerHand = 0;
+                                                postChatMessage("BlackJack " + Player + " x");
+                                            }
+                                            else if (DealerHand2 === 21) {
+                                                postChatMessage(Dealer + " has BlackJack, " + Player + " has " + PlayerHand + " Dealer wins!");
+                                                BlkJkRd1 = false;
+                                                Player = '';
+                                                DealerHand = 0;
+                                                PlayerHand = 0;
+                                            }
+                                            else if (PlayerHand2 === 21) {
+                                                if (BlackJackPrizeAssigned) {
+                                                    postChatMessage(Player + " has 21 and has won " + BlackJackPrize);
+                                                    BlkJkRd1 = false;
+                                                    Player = '';
+                                                    DealerHand = 0;
+                                                    PlayerHand = 0;
                                                 }
                                                 else {
-                                                    BlkJkRd1 = true;
-                                                    DealerHand = DealerHand2;
-                                                    PlayerHand = PlayerHand2;
-                                                    postChatMessage("Who wants a card?");
+                                                    postChatMessage(Player + " has 21");
+                                                    Player = '';
+                                                    DealerHand = 0;
+                                                    PlayerHand = 0;
+                                                    BlkJkRd1 = false;
                                                 }
                                             }
-                                            else {
-                                                postChatMessage("I don't know how I ended at the end of round 2 with dealer: " + DealerHand2 + " & Player " + PlayerHand2)
+                                        }
+                                        else if ((PlayerHand2 >= 22) || (DealerHand2 >= 22)) {
+                                            if (PlayerHand2 >= 22) {
+                                                postChatMessage(Player + " bust");
+                                                BlkJkRd1 = false;
+                                                Player = '';
+                                                DealerHand = 0;
+                                                PlayerHand = 0;
                                             }
-                                        }, 9000);
-                                    }
-                                    else {
-                                        postChatMessage("I'm sorry only the house, or helpers can draw house card");
-                                    }
+                                            else {
+                                                postChatMessage(Dealer + " bust " + Player + " wins");
+                                                BlkJkRd1 = false;
+                                                Player = '';
+                                                DealerHand = 0;
+                                                PlayerHand = 0;
+                                                if (BlackJackPrizeAssigned) {
+                                                    postChatMessage(Player + " has beat the dealer and won " + BlackJackPrize);
+                                                }
+                                                else {
+                                                    postChatMessage(Player + " has beat the dealer");
+                                                }
+                                            }
+                                        }
+                                        else if (DealerHand2 <= 21) {
+                                            if (DealerHand2 >= 16) {
+                                                postChatMessage(Dealer + " has to stick");
+                                                DealerSet = true;
+                                                BlkJkRd1 = true;
+                                                DealerHand = DealerHand2;
+                                                postChatMessage(Player + " would you like another card? just type: 'draw! 1' & I will draw another card for you");
+                                            }
+                                            else {
+                                                BlkJkRd1 = true;
+                                                DealerHand = DealerHand2;
+                                                PlayerHand = PlayerHand2;
+                                                postChatMessage("Who would you like another card? just type: 'draw! 1' & I will draw another card for you");
+                                            }
+                                        }
+                                        else {
+                                            postChatMessage("I don't know how I ended at the end of round 2 with dealer: " + DealerHand2 + " & Player " + PlayerHand2)
+                                        }
+                                    }, 9000);
                                 }
                                 else {
-                                    postChatMessage(cardchoice + " is not playing, " + Player + " or " + Dealer + " is playing");
+                                    postChatMessage("I'm sorry only the house, or helpers can draw house card");
                                 }
                             }
                         }
@@ -2854,7 +2846,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             //BlackJack Game
             BlackJackWinnerRegex = /BlackJack winner is!/i;
             BlkJk1Regex = /blackjack for (.[^:]+) x/i;
-            BlkJk2Regex = /blackjack draw (player|house)/i;
+            BlkJk2Regex = /draw! 1/i;
             //Spin The Wheel Game
             SpinRegex = /Spin for (.[^:]+) x/i;
             //War Game
