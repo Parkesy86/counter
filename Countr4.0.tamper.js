@@ -1352,7 +1352,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 postie = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "PM from " + currentModelName) || (poster == "PM from Parkesy86") || (poster == "PM from TestCounter") || (poster == "PM from HoleeeSheeet")) {
+                if ((poster == currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
                     var val = SVar[1];
                     var control = val.toLowerCase();
                     var ctrlval = parseInt(SVar[2]);
@@ -2377,7 +2377,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 var amount = parseInt(addHighest[2]);
                 var contributor = addHighest[1];
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "PM from " + currentModelName) || (poster == "PM from Parkesy86") || (poster == "PM from TestCounter")) {
+                if ((poster == currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter")) {
                     postChatMessage(poster + " highest tipper has been updated");
                     addContributor(contributor, amount);
                     ParkMsg = poster + " has added " + contributor + " to highest tip with " + amount;
@@ -2387,7 +2387,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                         setElementText(spanHighestTip, contributor + " (" + highestTip + ")");
                     }
                 }
-                else if (poster == ("PM from " + helper)) {
+                else if (poster ===helper)) {
                     if (banned.indexOf(helper) == -1) {
                         banned.push(helper);}
                     postChatMessage("helper removed from countr");
