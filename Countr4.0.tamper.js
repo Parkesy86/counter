@@ -202,7 +202,6 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
         }
         gamearray = [" guessing game", " war game", " BlackJack", " Spin The Wheel"];
 
-
         //game functions
         function play1stHand(BlkJk1, msgSpan) {
             var poster;
@@ -866,20 +865,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     if (isBlackJackActive) {
-                        if (BlkJkRd1) {
-                            if (PlayerHand > DealerHand) {
-                                if (BlackJackPrizeAssigned) {
-                                    postChatMessage(Player + " has beat the house in round 1 with " + PlayerHand + " over " + DealerHand + " & won " + BlackJackPrize);
-                                }
-                                else {
-                                    postChatMessage(Player + " has beat the house in round 1 with " + PlayerHand + " over " + DealerHand);
-                                }
-                            }
-                            else if (DealerHand > PlayerHand) {
-                                postChatMessage("House wins with " + DealerHand + " over " + PlayerHand);
-                            }
-                        }
-                        else if (BlkJkRd2) {
+                        if (BlkJkRd2) {
                             if (PlayerHand > DealerHand) {
                                 if (BlackJackPrizeAssigned) {
                                     postChatMessage(Player + " has beat the house in round 2 with " + PlayerHand2 + " over " + DealerHand2 + " & won " + BlackJackPrize);
@@ -890,6 +876,19 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else if (DealerHand > PlayerHand) {
                                 postChatMessage("House wins with " + DealerHand2 + " over " + PlayerHand2);
+                            }
+                        }
+                        else if (BlkJkRd1) {
+                            if (PlayerHand > DealerHand) {
+                                if (BlackJackPrizeAssigned) {
+                                    postChatMessage(Player + " has beat the house in round 1 with " + PlayerHand + " over " + DealerHand + " & won " + BlackJackPrize);
+                                }
+                                else {
+                                    postChatMessage(Player + " has beat the house in round 1 with " + PlayerHand + " over " + DealerHand);
+                                }
+                            }
+                            else if (DealerHand > PlayerHand) {
+                                postChatMessage("House wins with " + DealerHand + " over " + PlayerHand);
                             }
                         }
                         else {
@@ -1149,7 +1148,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                         }
                     }
                     else {
-                        postChatMessage("no games are currently running, start war or guessing game by turning them on with chat commands");
+                        postChatMessage("no other games are currently running, start games by turning them on with chat commands");
                     }
                 }
                 else {
@@ -1187,7 +1186,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                         }
                     }
                     else {
-                        postChatMessage("no games are currently running, start war or guessing game by turning them on with chat commands");
+                        postChatMessage("no other games are currently running, start games by turning them on with chat commands");
                     }
                 }
             }
