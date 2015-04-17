@@ -66,13 +66,13 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
         var spanHighestTip, spanCurrentModel, helper = [], spanMenuCount, spanTopContrib, divAlert, txtInput, btnSend, aAutoPost, aPostCurrentCount, soundDiv, playWar2Regex;
         var Topic1, Topic2, Topic3, Topic4, Topic5, T1, T2, T3, T4, T5, SpankSpec, FlashSpec, VidTrp,VidAmt, SnapSpec, VidSgl, VidDbl, Vid1, Vid2, Vid3, Vid4, Vid5, Vid6, Vid7, Vid8;
         var mfcLoadPlayer, TwitMsg, VidMsg, gameRegex, chanceGuessed = [], addgameRegex, toggleGuessRegex, highTipRegex, addHighRegex, bannedRemoveRegex;
-        var countrRegex, gamearray, VarVid, topicVar2 = false, nopeRegex, stopGamesRegex, helpers = [], ParkMsg, banned = [];
+        var countrRegex, gamearray, VarVid, topicVar2 = false, nopeRegex, stopGamesRegex, helpers = [], ParkMsg, ModelMsg, banned = [];
         var addBannedRegex, topicValRegex, SpecialRegex, ShowRegex, Show1, Show2, Show3, Show4, Show5, toggleNoRegex, postNo;
         var playWarRegex, isHelperAssigned, assignHelperRegex, removeHelperRegex, isGuessActive, StopTopicRegex, SpinRegex, isSpinActive, SpinPrize;
         var BlackJackPrize, WarPrize, GuessPrize, BlackJackTip, WarTip, chance, BlackJackPrizeAssigned, WarPrizeAssigned, GuessPrizeAssigned;
         var isWarActive, Dealer, Player, isBlackJackActive, BlackJackWinnerRegex, SpinTip, SpinPrizeAssigned, setGamePrizeRegex, setGameTipRegex;
         var DealerSet, DealerHand, DealerHand2, PlayerHand, PlayerHand2, BlkJkRd1, BlkJkRd2, startGameRegex, BlkJk1Regex, BlkJk2Regex;
-        
+
         function init() {
             setTimeout(function () {
                 mfcLoadPlayer = unsafeWindow.LoadPlayer;
@@ -201,26 +201,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             htmlSetup = true;
         }
         gamearray = [" guessing game", " war game", " BlackJack", " Spin The Wheel"];
-        function startCountDown() {
-            if (isCountDownActive) {
-                if (!confirm("You already have a countdown running.  Override?")) {
-                    return;
-                }
-            }
-            var newCountDown = prompt("countdown calculated using 'Topic1-5' in the script", T1);
-            if (null === newCountDown) {
-                return; //canceled out
-            }
-            if (NaN !== parseInt(newCountDown)) {
-                countDown = newCountDown;
-                isCountDownActive = true;
-                showCurrentCountDown();
-                postCurrentCount();
-                aAutoPost.setAttribute('class', 'show');
-                aPostCurrentCount.setAttribute('class', 'show');
-            }
-        }
-        var postCountQueued = false;
+
 
         //game functions
         function play1stHand(BlkJk1, msgSpan) {
@@ -546,7 +527,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     if (game == "war") {
                         WarTip = tipval;
                         postChatMessage("War tip has been set by " + poster + " to " + tipval);
@@ -573,7 +554,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     if (game == "blackjack") {
                         if (command == "start") {
                             if (isBlackJackActive) {
@@ -689,7 +670,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                                 }
                                 else {
                                     isSpinActive = true;
-                                    postChatMessage("Spin The Wheel has been started, tip no tip value set to play to play a hand");
+                                    postChatMessage("Spin The Wheel has been started, no tip value set to play to play a hand");
                                 }
                             }
                         }
@@ -720,7 +701,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     if (game == "war") {
                         WarPrizeAssigned = true;
                         WarPrize = gameprz;
@@ -759,7 +740,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                     var WheelSpin2 = Math.floor((Math.random() * 2), +1);
                     var SpinValue = WheelVal2[WheelSpin2];
                     if (SpinValue == "Player") {
-                        postChatMessage(Player + "'s spin result is " + Player + " has to " + SpinPrize + " themselves");
+                        postChatMessage(Player + "'s spin result is " + SpinPlayer + " has to " + SpinPrize + " themselves");
                     }
                     else if (SpinValue == "Model") {
                         postChatMessage(Player + "'s spin result is " + currentModelName + " has to " + SpinPrize + " themselves");
@@ -821,7 +802,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     var WheelVal1 = ["Free Spin", "Spank", "Flash", "Truth", "Dare", "Ban A Basic", "20% off any video", "Free Picture Gallery", "Free SnapChat For 1 month"];
                     var WheelSpin1 = Math.floor((Math.random() * 9), +1);
                     var SpinPlayer = Spin[1];
@@ -935,7 +916,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     GuessPrize = 0;
                     GuessPrizeAssigned = false;
                     isGuessActive = false;
@@ -966,11 +947,12 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     chanceGuessed = [];
                     chance = Math.floor((Math.random() * 100) + 1);
                     postChatMessage("game data has been reset by " + poster);
-                    postChatMessage("/pm " + currentModelName + " new value is " + chance);
+                    ModelMsg = " new value is " + chance;
+                    postToModel(ModelMsg);
                 }
                 else {
                     postChatMessage(":nono I'm sorry " + poster + " you can not remove guessing game data");
@@ -1024,7 +1006,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 var war1 = warForTwo[1];
                 var war2 = warForTwo[2];
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     postChatMessage("shuffling deck, please wait....... :deckshuffle ");
                     postCountTimeout = setTimeout(function () {
                         postCountTimeout = null;
@@ -1112,7 +1094,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     var contributor = play[1];
                     if (isWarActive) {
                         postChatMessage("shuffling deck, please wait....... :deckshuffle ");
@@ -1138,7 +1120,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     if (isWarActive) {
                         if (WarPrizeAssigned) {
                             postChatMessage("war is active to play tip: " + WarTip);
@@ -1163,13 +1145,13 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                     if (isGuessActive) {
                         if (GuessPrizeAssigned) {
                             postChatMessage("/pm " + poster + " the random number for today is " + chance + " whoever tips this wins (max 1 person)");
-                            postChatMessage("DreamOfAnalia's Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
+                            postChatMessage(currentModelName + "'s Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
                             postChatMessage("prize for guessing the correct number is: " + GuessPrize);
                             postChatMessage("numbers guessed so far are: " + chanceGuessed.sort());
                         }
                         else {
                             postChatMessage("/pm " + poster + " the random number for today is " + chance + " whoever tips this wins (max 1 person)");
-                            postChatMessage("DreamOfAnalia's Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
+                            postChatMessage(currentModelName + "'s Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
                             postChatMessage("no prize has been set for winning the guessing game");
                             postChatMessage("numbers guessed so far are: " + chanceGuessed.sort());
                         }
@@ -1190,17 +1172,17 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                     }
                     if (isGuessActive) {
                         if (GuessPrizeAssigned) {
-                            postChatMessage("DreamOfAnalia's Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
+                            postChatMessage(currentModelName + "'s Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
                             postChatMessage("prize for guessing the correct number using tip amount is: " + GuessPrize);
                             postChatMessage("numbers guessed so far are: " + chanceGuessed.sort());
                         }
                         else {
-                            postChatMessage("DreamOfAnalia's Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
+                            postChatMessage(currentModelName + "'s Random Number Game, simply tip an amount between 1-100 and if it matches the random number you win (max 1 person per game)");
                             postChatMessage("no prize has been set for winning the guessing game");
                             postChatMessage("numbers guessed so far are: " + chanceGuessed.sort());
                         }
                     }
-                     if (isSpinActive){
+                    if (isSpinActive){
                         postChatMessage("Spin The Wheel is active to play, tip: " + SpinTip + " for your chance to win");
                     }
                     if (isBlackJackActive){
@@ -1224,7 +1206,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     var amount = parseInt(addgame[1]);
                     if (isGuessActive) {
                         if (amount >= 101) {
@@ -1265,7 +1247,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 var TopicMaster = parseInt(TVar[1]);
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
                     var posty = poster;
                     if (TopicMaster === 4999){
                         postChatMessage("Topic amounts have been set, sample topic is being generated :waitloading");
@@ -1328,7 +1310,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
                     var SValue = parseInt(show[2]);
                     var SType = show[1];
                     if (SValue === 1) {
@@ -1381,6 +1363,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             postChatMessage("Spank value has been set to " + SpankSpec);
                         }
                         else {
+                            SpankSpec = 99;
                             postChatMessage("Spank value set to default value of " + SpankSpec);
                         }
                     }
@@ -1390,6 +1373,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             postChatMessage("Flash value has been set to " + FlashSpec);
                         }
                         else {
+                            FlashSpec = 100;
                             postChatMessage("Flash value has been set to default " + FlashSpec);
                         }
                     }
@@ -1399,6 +1383,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             postChatMessage("SnapChat value has been set to " + SnapSpec);
                         }
                         else {
+                            SnapSpec = 1717;
                             postChatMessage("SnapChat value has been set to default " + SnapSpec);
                         }
                     }
@@ -1408,6 +1393,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             postChatMessage("Single Vid value has been set to " + VidSgl);
                         }
                         else {
+                            VidSgl = 500;
                             postChatMessage("Single Vid value has been set to default " + VidSgl);
                         }
                     }
@@ -1417,16 +1403,17 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             postChatMessage("Multi Vid value has been set to " + VidDbl);
                         }
                         else {
+                            VidDbl = 999;
                             postChatMessage("Multi Vid value has been set to default " + VidDbl)
                         }
                     }
                     else if (control == "vidtrp") {
                         VidTrp = ctrlval;
                         if (VidDbl > 0){
-                            postChatMessage("Non topic Vid value has been set to " + VidDbl);
+                            postChatMessage("Non topic Vid value has been set to " + VidTrp);
                         }
                         else {
-                            postChatMessage("Non topic Vid value has been set to default " + VidDbl)
+                            postChatMessage("Non topic Vid value has been set to default " + VidTrp)
                         }
                     }
                     else if (control == "vidamt") {
@@ -1453,7 +1440,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     var topictextmsg = UpdateTopic;
                     if(null == topictextmsg){
                         postChatMessage(":oops no previous topic has been posted and recorded");
@@ -1481,8 +1468,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 if (poster == "AnaliasCountr") {
                     //parse the values
                     var Topic = parseInt(topic[1]);
-                    UpdateTopic = (Topic + " TY Guys");
-                    postChatMessage("Updated topic has been stored, use the retrieve command to request it");
+                    UpdateTopic = (Topic);
                 }
             }
         }
@@ -1492,7 +1478,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     isCountDownActive = false;
                     autoPostActive = false;
                     countDown = 0;
@@ -1517,7 +1503,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 var topicNumb = parseInt(start[1]);
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     if (isCountDownActive) {
                         postChatMessage("I'm sorry " + poster + " countdown is already running, please cancel before starting a new one")
                     }
@@ -1528,8 +1514,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             isCountDownActive = true;
                             autoPostActive = true;
                             postCurrentCount();
-                            postChatMessage("make sure to follow DreamOfAnalia on Twitter :doatwit");
-                            postChatMessage("all videos available on http://profiles.myfreecams.com/DreamOfAnalia :doa15");
+                            postChatMessage("make sure to follow " + currentModelName + " on Twitter");
+                            postChatMessage("all videos available on http://profiles.myfreecams.com/" + currentModelName);
                             postChatMessage(poster + " has started a new topic to the value of " + (countDown - T2));
                         }
                         else if (topicNumb === 2) {
@@ -1538,8 +1524,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             isCountDownActive = true;
                             autoPostActive = true;
                             postCurrentCount();
-                            postChatMessage("make sure to follow DreamOfAnalia on Twitter :doatwit");
-                            postChatMessage("all videos available on http://profiles.myfreecams.com/DreamOfAnalia :doa15");
+                            postChatMessage("make sure to follow " + currentModelName + " on Twitter");
+                            postChatMessage("all videos available on http://profiles.myfreecams.com/" + currentModelName);
                             postChatMessage(poster + " has started a new topic to the value of " + (countDown - T3));
                         }
                         else if (topicNumb === 3) {
@@ -1548,8 +1534,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             isCountDownActive = true;
                             autoPostActive = true;
                             postCurrentCount();
-                            postChatMessage("make sure to follow DreamOfAnalia on Twitter :doatwit");
-                            postChatMessage("all videos available on http://profiles.myfreecams.com/DreamOfAnalia :doa15");
+                            postChatMessage("make sure to follow " + currentModelName + " on Twitter");
+                            postChatMessage("all videos available on http://profiles.myfreecams.com/" + currentModelName);
                             postChatMessage(poster + " has started a new topic to the value of " + (countDown - T4));
                         }
                         else if (topicNumb === 4) {
@@ -1558,8 +1544,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             isCountDownActive = true;
                             autoPostActive = true;
                             postCurrentCount();
-                            postChatMessage("make sure to follow DreamOfAnalia on Twitter :doatwit");
-                            postChatMessage("all videos available on http://profiles.myfreecams.com/DreamOfAnalia :doa15");
+                            postChatMessage("make sure to follow " + currentModelName + " on Twitter");
+                            postChatMessage("all videos available on http://profiles.myfreecams.com/" + currentModelName);
                             postChatMessage(poster + " has started a new topic to the value of " + (countDown - T5));
                         }
                         else if (topicNumb === 5) {
@@ -1568,8 +1554,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             isCountDownActive = true;
                             autoPostActive = true;
                             postCurrentCount();
-                            postChatMessage("make sure to follow DreamOfAnalia on Twitter :doatwit");
-                            postChatMessage("all videos available on http://profiles.myfreecams.com/DreamOfAnalia :doa15");
+                            postChatMessage("make sure to follow " + currentModelName + " on Twitter");
+                            postChatMessage("all videos available on http://profiles.myfreecams.com/" + currentModelName);
                             postChatMessage(poster + " has started a new topic to the value of " + countDown);
                         }
                     }
@@ -1591,7 +1577,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 var minusamt = parseInt(minus[1]);
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     if (isCountDownActive){
                         var remain = countDown - minusamt;
                         if (countDown >= (1 + T2)) {
@@ -1600,7 +1586,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = remain;
-                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T2));
+                                ModelMsg = poster + " has reduced the topic, which is now " + (countDown - T2);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1611,7 +1598,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = remain;
-                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T3));
+                                ModelMsg = poster + " has reduced the topic, which is now " + (countDown - T3);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1622,7 +1610,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = remain;
-                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T4));
+                                ModelMsg = poster + " has reduced the topic, which is now " + (countDown - T4);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1633,7 +1622,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = remain;
-                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown - T5));
+                                ModelMsg = poster + " has reduced the topic, which is now " + (countDown - T5);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1644,13 +1634,14 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = remain;
-                                postChatMessage(poster + " has reduced the topic, which is now " + (countDown));
+                                ModelMsg = poster + " has reduced the topic, which is now " + (countDown);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
                         }
                         else {
-                            postChatMessage(poster + " i tried to reduce the count but something went wrong");
+                            ModelMsg = poster + " i tried to reduce the count but something went wrong";
                             postCurrentCount();
                             showCurrentCountDown();
                         }
@@ -1676,7 +1667,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 var plusamt = parseInt(plus[1]);
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     if (isCountDownActive){
                         var range = countDown + plusamt;
                         if (countDown >= (1 + T2)){
@@ -1685,7 +1676,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = range;
-                                postChatMessage(poster + " has increased the topic, which is now " + (countDown - T2));
+                                ModelMsg = poster + " has increased the topic, which is now " + (countDown - T2);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1696,7 +1688,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = range;
-                                postChatMessage(poster + " has increased the topic, which is now " + (countDown - T3));
+                                ModelMsg = poster + " has increased the topic, which is now " + (countDown - T3);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1707,7 +1700,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = range;
-                                postChatMessage(poster + " has increased the topic, which is now " + (countDown - T4));
+                                ModelMsg = poster + " has increased the topic, which is now " + (countDown - T4);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1718,7 +1712,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = range;
-                                postChatMessage(poster + " has increased the topic, which is now " + (countDown - T5));
+                                ModelMsg = poster + " has increased the topic, which is now " + (countDown - T5);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1729,7 +1724,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                             }
                             else {
                                 countDown = range;
-                                postChatMessage(poster + " has increased the topic, which is now " + (countDown));
+                                ModelMsg = poster + " has increased the topic, which is now " + (countDown);
+                                postToModel(ModelMsg);
                                 postCurrentCount();
                                 showCurrentCountDown();
                             }
@@ -1758,7 +1754,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster === helper) || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster === helper) || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
                     if (countDown >= (T2 + 1)) {
                         countDown = T2;
                         postCurrentCount();
@@ -1792,7 +1788,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 var control = helpAsgn[1];
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter")) {
                     if (isHelperAssigned) {
                         postChatMessage("helper is already assigned to " + helper + " please remove as helper before reassigning");
                     }
@@ -1826,7 +1822,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
                     postChatMessage("/pm " + poster + " tip info as requested " + spanHighestTip.innerHTML);
                     ParkMsg = poster + " has requested highest tip information " + spanHighestTip.innerHTML;
                     postToPark(ParkMsg);
@@ -1834,7 +1830,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 else if (poster === helper) {
                     postChatMessage("helper removed from countr");
                     postChatMessage("/pm " + helper + " this request is beyond your capabilities, the operator has been notified!");
-                    postChatMessage("/pm DreamOfAnalia helper tried to request information they shouldn't, as such has been removed as helper and banned for 24hrs");
+                    ModelMsg = "helper tried to request information they shouldn't, as such has been removed as helper and banned for 24hrs";
+                    postToModel(ModelMsg);
                     isHelperAssigned = false;
                     if (banned.indexOf(helper) == -1) {
                         banned.push(helper);}
@@ -1853,7 +1850,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             //is the message from the model?
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             poster = nameSpan.innerHTML.replace(/:/, '');
-            if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster === helper)) {
+            if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster === helper)) {
                 if (isCountDownActive) {
                     if (topicVar2) {
                         if (countDown >= (1 + T2)) {
@@ -1893,7 +1890,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             }
         }
         function TopicX(posty) {
-            if ((posty == "DreamOfAnalia") || (posty == "Parkesy86") || (posty == "TestCounter") || (poster === helper)) {
+            if ((posty === currentModelName) || (posty == "Parkesy86") || (posty == "TestCounter") || (poster === helper)) {
                 if (isCountDownActive) {
                     if (topicVar2) {
                         if (countDown >= (1 + T2)) {
@@ -1938,7 +1935,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
                     if (isHelperAssigned) {
                         postChatMessage("helper is currently designated to " + helper);
                     }
@@ -1962,7 +1959,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     postChatMessage("/pm " + poster + " currently running countr which covers topics " + Topic1 + ", " + Topic2 + ", " + Topic3 + ", " + Topic4 + ", " + Topic5);
                     postChatMessage("/pm " + poster + " countr also includes the following games: " + gamearray.sort() + " if you want help type 'countr! help'");
                 }
@@ -1979,8 +1976,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
-                    postChatMessage("Following commands are used for countr: minus xxx | plus xxx | topic please | start topic x | countr help");
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper)) {
                     postChatMessage("/pm " + poster + " for a full list of countr commands visit: http://www.dropbox.com/s/5bpw6kexul7q7zt/AnaliasCountr.docx?dl=0");
                     postChatMessage(":countrhelp");
                 }
@@ -2003,22 +1999,25 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 return;
             }
             //post the count to chat
-            TwitMsg = "make sure to follow DreamOfAnalia on Twitter :doatwit";
-            VidMsg = "all videos listed on http://profiles.myfreecams.com/DreamOfAnalia    :doa15";
             if (countDown >= (1+T2)){
-                postChatMessage("/pm DreamOfAnalia " + (countDown - T2));
+                ModelMsg = (countDown - T2);
+                postToModel(ModelMsg);
             }
             else if (countDown >= (1 + T3)) {
-                postChatMessage("/pm DreamOfAnalia  " + (countDown - T3));
+                ModelMsg = (countDown - T3);
+                postToModel(ModelMsg);
             }
             else if (countDown >= (1 + T4)) {
-                postChatMessage("/pm DreamOfAnalia  " + (countDown - T4));
+                ModelMsg = (countDown - T);
+                postToModel(ModelMsg);
             }
             else if (countDown >= (1 + T5)) {
-                postChatMessage("/pm DreamOfAnalia  " + (countDown - T5));
+                ModelMsg = (countDown - T5);
+                postToModel(ModelMsg);
             }
             else if (countDown >= 1) {
-                postChatMessage("/pm DreamOfAnalia  " + countDown);
+                ModelMsg = countDown;
+                postToModel(ModelMsg);
             }
             else {
                 postChatMessage("/pm DreamOfAnalia  " + " no count running, use commands to start a new one :D");
@@ -2244,7 +2243,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster === helper) || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster === helper) || (poster == "TestCounter") || (poster == "HoleeeSheeet")) {
                     if (cmdr == "on") {
                         if (postNo) {
                             postChatMessage("I am already set to post :doano");
@@ -2273,7 +2272,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
                 if (nameSpan) {
                     poster = nameSpan.innerHTML.replace(/:/, '');
-                    if (poster == "DreamOfAnalia") {}
+                    if (poster === currentModelName) {}
                     else {
                         postChatMessage(":doano " + poster);
                     }
@@ -2369,7 +2368,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 var amount = parseInt(addHighest[2]);
                 var contributor = addHighest[1];
-                poster = nameSpan.innerHTML.replace(/:/, '');
+                poster = nameSpan.innerHTML;
                 if ((poster == "PM from DreamOfAnalia") || (poster == "PM from Parkesy86") || (poster == "PM from TestCounter")) {
                     postChatMessage(poster + " highest tipper has been updated");
                     addContributor(contributor, amount);
@@ -2400,6 +2399,9 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
         function postToPark(ParkMsg) {
             postChatMessage("/pm parkesy86 " + ParkMsg)
         }
+        function postToModel(ModelMsg) {
+            postChatMessage("/pm " + currentModelName + " ," + ModelMsg);
+        }
         function removeHelper(helpRmv, msgSpan) {
             var poster;
             //is the message from the model?
@@ -2407,7 +2409,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
                 var removeVal = helpRmv[1];
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter")) {
                     if (isHelperAssigned) {
                         if (removeVal === helper) {
                             isHelperAssigned = false;
@@ -2438,7 +2440,7 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             var nameSpan = ((msgSpan.parentNode.querySelector('a span.name_model')) || (msgSpan.parentNode.querySelector('a span.name_premium')));
             if (nameSpan) {
                 poster = nameSpan.innerHTML.replace(/:/, '');
-                if ((poster == "DreamOfAnalia") || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper) || (poster == "AnaliasPrince") || (poster == "AnaliasWes") || (poster == "AnaliasPony") || (poster == "")) {
+                if ((poster === currentModelName) || (poster == "Parkesy86") || (poster == "TestCounter") || (poster == "HoleeeSheeet") || (poster === helper) || (poster == "AnaliasPrince") || (poster == "AnaliasWes") || (poster == "AnaliasPony") || (poster == "")) {
                     postChatMessage("/pm " + poster + " removing spam as requested ");
                     postChatMessage(".");
                     postChatMessage(".");
@@ -2494,6 +2496,26 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 }
             }
         }
+        function startCountDown() {
+            if (isCountDownActive) {
+                if (!confirm("You already have a countdown running.  Override?")) {
+                    return;
+                }
+            }
+            var newCountDown = prompt("countdown calculated using 'Topic1-5' in the script", T1);
+            if (null === newCountDown) {
+                return; //canceled out
+            }
+            if (NaN !== parseInt(newCountDown)) {
+                countDown = newCountDown;
+                isCountDownActive = true;
+                showCurrentCountDown();
+                postCurrentCount();
+                aAutoPost.setAttribute('class', 'show');
+                aPostCurrentCount.setAttribute('class', 'show');
+            }
+        }
+        var postCountQueued = false;
 
         //Handling tips & countsdowns
         function handleTip(tip, tipSpan) {
@@ -2504,28 +2526,28 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
             //calculate countdown values if needed
             if (isGameActive) {
                 if (isGuessActive) {
-                        if (amount === chance) {
-                            postChatMessage(":uhuh we have a winner " + contributor);
-                            postChatMessage("/pm DreamOfAnalia  " + contributor + " has won the guessing game with the value " + amount);
-                            adjustCountDown(amount, contributor);
-                            chance = 0;
-                            chanceGuessed = [];
-                            guessPrizeAssigned = false;
-                            ParkMsg = "winner of chance was " + contributor;
-                            postToPark(ParkMsg);
-                            if(isCountDownActive) {
-                                adjustCountDown(amount);
-                            }
-                        }
-                        else {
-                            if (chanceGuessed.indexOf(amount) == -1) {
-                                chanceGuessed.push(amount);
-                            }
-                            if (isCountDownActive) {
-                                adjustCountDown(amount);
-                            }
+                    if (amount === chance) {
+                        postChatMessage(":uhuh we have a winner " + contributor);
+                        postChatMessage("/pm DreamOfAnalia  " + contributor + " has won the guessing game with the value " + amount);
+                        adjustCountDown(amount, contributor);
+                        chance = 0;
+                        chanceGuessed = [];
+                        guessPrizeAssigned = false;
+                        ParkMsg = "winner of chance was " + contributor;
+                        postToPark(ParkMsg);
+                        if(isCountDownActive) {
+                            adjustCountDown(amount);
                         }
                     }
+                    else {
+                        if (chanceGuessed.indexOf(amount) == -1) {
+                            chanceGuessed.push(amount);
+                        }
+                        if (isCountDownActive) {
+                            adjustCountDown(amount);
+                        }
+                    }
+                }
                 if (amount === WarTip) {
                     if (isWarActive) {
                         postChatMessage("shuffling deck, please wait....... :deckshuffle ");
@@ -2686,7 +2708,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 maAlert("Topic 1 Complete!");
                 countDown = T2;
                 isCountDownActive = true;
-                postChatMessage("/pm DreamOfAnalia urmatoral topic: " + Topic2);
+                ModelMsg = "urmatoral topic: " + Topic2;
+                postToModel(ModelMsg);
                 postCurrentCount();
                 postChatMessage(TwitMsg);
                 postChatMessage(VidMsg);
@@ -2705,7 +2728,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 maAlert("Topic 2 Complete!");
                 countDown = T3;
                 isCountDownActive = true;
-                postChatMessage("/pm DreamOfAnalia urmatoral topic: " + Topic3);
+                ModelMsg = "urmatoral topic: " + Topic3;
+                postToModel(ModelMsg);
                 postCurrentCount();
                 postChatMessage(TwitMsg);
                 postChatMessage(VidMsg);
@@ -2724,7 +2748,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 maAlert("Topic 3 Complete!");
                 countDown = T4;
                 isCountDownActive = true;
-                postChatMessage("/pm DreamOfAnalia urmatoral topic: " + Topic4);
+                ModelMsg = "urmatoral topic: " + Topic2;
+                postToModel(ModelMsg);
                 postCurrentCount();
                 postChatMessage(TwitMsg);
                 postChatMessage(VidMsg);
@@ -2743,7 +2768,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 maAlert("Topic 4 Complete!");
                 countDown = T5;
                 isCountDownActive = true;
-                postChatMessage("/pm DreamOfAnalia urmatoral topic: " + Topic5);
+                ModelMsg = "urmatoral topic: " + Topic2;
+                postToModel(ModelMsg);
                 postCurrentCount();
                 postChatMessage(TwitMsg);
                 postChatMessage(VidMsg);
@@ -2762,7 +2788,8 @@ if (0 === window.location.href.indexOf('http://www.myfreecams.com/mfc2/static/pl
                 maAlert("Topic 5 Complete!");
                 countDown = 0;
                 isCountDownActive = true;
-                postChatMessage("/pm DreamOfAnalia Final topic complete");
+                ModelMsg = "urmatoral topic: 0";
+                postToModel(ModelMsg);
                 postCurrentCount();
                 postChatMessage(TwitMsg);
                 postChatMessage(VidMsg);
